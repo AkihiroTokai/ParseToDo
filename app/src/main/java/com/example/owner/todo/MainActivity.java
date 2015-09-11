@@ -16,13 +16,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int mResourceId;
-    private LayoutInflater mInflator;
+    private ListView mTaskListView;
+    private TaskAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mTaskListView = (ListView) findViewById(R.id.listView);
         mAdapter = new TaskAdapter(getApplicationContext(),
                 R.layout.listview_item_task,
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         mTaskListView.setAdapter(mAdapter);
 
         ParseQuery<Task> parseQuery = new ParseQuery<>(Task.class);
-        ParseQuery.findInBackground(new FindCallback<Task>() {
+        parseQuery.findInBackground(new FindCallback<Task>() {
             @Override
             public void done(List<Task> list, ParseException e) {
                 if (e == null) {
