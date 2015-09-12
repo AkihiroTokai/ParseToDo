@@ -2,6 +2,7 @@ package com.example.owner.todo;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.widget.CompoundButtonCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class TaskAdapter extends ArrayAdapter<Task>
 
     private int mResourceId;
     private LayoutInflater mInflator;
+    private ViewHolder viewHolder;
 
     public TaskAdapter(Context context, int resource, List<Task> objects) {
         super(context, resource, objects);
@@ -30,7 +32,6 @@ public class TaskAdapter extends ArrayAdapter<Task>
 
     @Override
     public View getView(int position ,View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
 
         if (convertView == null) {
             convertView = mInflator.inflate(mResourceId, null);
@@ -44,9 +45,12 @@ public class TaskAdapter extends ArrayAdapter<Task>
 
         viewHolder.checkBox.setText(task.getTitle());
         viewHolder.checkBox.setOnCheckedChangeListener(null);
-        viewHolder.checkBox.setChecked(task.isCheck());
+        //viewHolder.checkBox.setChecked(task.isCheck());
         viewHolder.checkBox.setOnCheckedChangeListener(this);
         viewHolder.checkBox.setTag(task);
+
+
+
 
         return convertView;
     }
@@ -57,11 +61,11 @@ public class TaskAdapter extends ArrayAdapter<Task>
         task.setCheck(isChecked);
         task.saveInBackground();
     }
-
     public class ViewHolder{
         CheckBox checkBox;
         public ViewHolder (View view){
             checkBox = (CheckBox)view.findViewById(R.id.checkBox);
         }
     }
+
 }
