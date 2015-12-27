@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
      public void parse(){
          ParseQuery<Task> parseQuery = new ParseQuery<>(Task.class);
-         parseQuery.whereEqualTo("check", "true");
+         //parseQuery.whereEqualTo("check", "true");
          parseQuery.findInBackground(new FindCallback<Task>() {
              @Override
              public void done(List<Task> list, ParseException e) {
