@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              public void done(List<Task> list, ParseException e) {
                  if (e == null) {
                      mAdapter.addAll(list);
+
+
                  } else{
                      e.printStackTrace();
                  }
