@@ -28,4 +28,10 @@ public class Task extends ParseObject {
     public void setCheck(boolean check){
         put("check", check);
     }
+
+
+    public void deleteContent(String id){
+        deleteInBackground();
+    }
+
 }

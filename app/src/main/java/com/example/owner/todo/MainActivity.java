@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mTaskListView;
     private TaskAdapter mAdapter;
     private EditText mTitleEditText;
+    private Button deleteButton;
+    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,30 +42,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTaskListView.setAdapter(mAdapter);
         parse();
     }
-     public void parse(){
-         ParseQuery<Task> parseQuery = new ParseQuery<>(Task.class);
-         //parseQuery.whereEqualTo("check", "true");
-         parseQuery.findInBackground(new FindCallback<Task>() {
-             @Override
-             public void done(List<Task> list, ParseException e) {
-                 if (e == null) {
-                     mAdapter.addAll(list);
+
+    public void parse() {
+        ParseQuery<Task> parseQuery = new ParseQuery<>(Task.class);
+        //parseQuery.whereEqualTo("check", "true");
+        parseQuery.findInBackground(new FindCallback<Task>() {
+            @Override
+            public void done(List<Task> list, ParseException e) {
+                if (e == null) {
+                    mAdapter.addAll(list);
 
 
-                 } else{
-                     e.printStackTrace();
-                 }
-             }
-         });
-         Button addButton = new Button(getApplicationContext());
-         addButton.setText("追加する");
-         addButton.setOnClickListener(this);
-         mTaskListView.addFooterView(addButton);
-     }
-    private  void showDialog(){
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button deleteButton = new Button(getApplicationContext());
+        deleteButton.setText("削除する");
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+               showDialog();
+            }
+        });
+        mTaskListView.addFooterView(deleteButton);
+
+        Button addButton = new Button(getApplicationContext());
+        addButton.setText("追加する");
+        addButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+            }
+        });
+        mTaskListView.addFooterView(addButton);
+
+    }
+
+
+    private void showDialog() {
         LayoutInflater inflater =
                 (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dialog_new_task,null);
+        View view = inflater.inflate(R.layout.dialog_new_task, null);
         mTitleEditText = (EditText) view.findViewById(R.id.editTextTitle);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
@@ -86,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         task.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e == null){
+                if (e == null) {
                     mAdapter.add(task);
-                } else{
+                } else {
                     Toast.makeText(
                             getApplicationContext(),
                             "追加に失敗しました",
@@ -114,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == 0 ){
-           parse();
+        if (id == 0) {
+            parse();
         }
 
         //noinspection SimplifiableIfStatement
@@ -128,6 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-       showDialog();
+        showDialog();
     }
 }
