@@ -3,8 +3,8 @@ package com.example.owner.todo;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,18 +61,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button deleteButton = new Button(getApplicationContext());
         deleteButton.setText("削除する");
-        deleteButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-               showDialog();
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteTask();
             }
         });
         mTaskListView.addFooterView(deleteButton);
 
         Button addButton = new Button(getApplicationContext());
         addButton.setText("追加する");
-        addButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-
+        addButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog();
             }
         });
         mTaskListView.addFooterView(addButton);
@@ -118,6 +118,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    private void deleteTask() {
+
+        final Task task = new Task();
+        task.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    mAdapter.remove(task);
+                } else {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "削除に失敗しました",
+                            Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
