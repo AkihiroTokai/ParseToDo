@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView mTaskListView;
     private TaskAdapter mAdapter;
     private EditText mTitleEditText;
-    private Button deleteButton;
-    private Button addButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
