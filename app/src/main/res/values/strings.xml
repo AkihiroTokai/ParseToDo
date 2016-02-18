@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="delete">削除する</string>
+    <string name="add">追加する</string>
+    <string name="add_Newtask">新しいタスクを追加</string>
+
 </resources>

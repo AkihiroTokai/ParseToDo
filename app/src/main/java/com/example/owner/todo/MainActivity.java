@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TaskAdapter mAdapter;
     private EditText mTitleEditText;
 
+    private String delete = getString(R.string.delete);
+    private String add_title = getString(R.string.add_title);
+    private String add = getString(R.string.add);
+    private String failed_add =getString(R.string.failed_add);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void done(List<Task> list, ParseException e) {
                 if (e == null) {
                     mAdapter.addAll(list);
-
-
                 } else {
                     e.printStackTrace();
                 }
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         Button deleteButton = new Button(getApplicationContext());
-        deleteButton.setText("削除する");
+        deleteButton.setText(delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 deleteTask();
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
         builder.setTitle("新しいタスクを追加");
-        builder.setPositiveButton("追加", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(add, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 addNewTask(mTitleEditText.getText().toString());
